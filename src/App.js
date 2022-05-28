@@ -21,7 +21,10 @@ export default class App extends Component {
     payees.some((data, index) => {
       if (data.payMonths.includes(this.month)) {
         this.setState({ paysThisMonth: data }, () => {
-          this.setState({ paysNextMonth: payees[index + 1] });
+          this.setState({
+            paysNextMonth:
+              index + 1 >= payees.length ? payees[0] : payees[index + 1],
+          });
         });
         return true;
       }
@@ -35,11 +38,11 @@ export default class App extends Component {
       <div className="App">
         <h1>
           {this.monthName} ayı Spotify ödeme sırası:{" "}
-          <span>{this.state.paysThisMonth.name}</span>
+          <span>{this.state.paysThisMonth?.name}</span>
         </h1>
         <h2>
           Gelecek ay ({this.nextMonthName}):{" "}
-          <span>{this.state.paysNextMonth.name}</span>
+          <span>{this.state.paysNextMonth?.name}</span>
         </h2>
       </div>
     );
